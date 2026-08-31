@@ -15,16 +15,64 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+// Dark primary/secondary/tertiary roles reuse the light scheme's fixed tones
+// (fixedDim/onFixed/onFixedVariant/fixed are tone 80/10/30/90 for the same hue,
+// which is exactly what the dark scheme roles map to) since no separate dark
+// palette was provided.
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = PrimaryFixedDim,
+    onPrimary = OnPrimaryFixed,
+    primaryContainer = OnPrimaryFixedVariant,
+    onPrimaryContainer = PrimaryFixed,
+    inversePrimary = Primary,
+    secondary = SecondaryFixedDim,
+    onSecondary = OnSecondaryFixed,
+    secondaryContainer = OnSecondaryFixedVariant,
+    onSecondaryContainer = SecondaryFixed,
+    tertiary = TertiaryFixedDim,
+    onTertiary = OnTertiaryFixed,
+    tertiaryContainer = OnTertiaryFixedVariant,
+    onTertiaryContainer = TertiaryFixed,
+    inverseSurface = OnSurface,
+    inverseOnSurface = Surface
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = Primary,
+    onPrimary = OnPrimary,
+    primaryContainer = PrimaryContainer,
+    onPrimaryContainer = OnPrimaryContainer,
+    inversePrimary = InversePrimary,
+    secondary = Secondary,
+    onSecondary = OnSecondary,
+    secondaryContainer = SecondaryContainer,
+    onSecondaryContainer = OnSecondaryContainer,
+    tertiary = Tertiary,
+    onTertiary = OnTertiary,
+    tertiaryContainer = TertiaryContainer,
+    onTertiaryContainer = OnTertiaryContainer,
+    error = Error,
+    onError = OnError,
+    errorContainer = ErrorContainer,
+    onErrorContainer = OnErrorContainer,
+    background = Background,
+    onBackground = OnBackground,
+    surface = Surface,
+    onSurface = OnSurface,
+    surfaceVariant = SurfaceVariant,
+    onSurfaceVariant = OnSurfaceVariant,
+    surfaceTint = SurfaceTint,
+    surfaceDim = SurfaceDim,
+    surfaceBright = SurfaceBright,
+    surfaceContainerLowest = SurfaceContainerLowest,
+    surfaceContainerLow = SurfaceContainerLow,
+    surfaceContainer = SurfaceContainer,
+    surfaceContainerHigh = SurfaceContainerHigh,
+    surfaceContainerHighest = SurfaceContainerHighest,
+    inverseSurface = InverseSurface,
+    inverseOnSurface = InverseOnSurface,
+    outline = Outline,
+    outlineVariant = OutlineVariant
 )
 
 @Composable

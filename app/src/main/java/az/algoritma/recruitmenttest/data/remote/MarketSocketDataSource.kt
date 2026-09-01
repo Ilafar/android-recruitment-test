@@ -29,10 +29,13 @@ class MarketSocketDataSource @Inject constructor(
         val onDisconnect = Emitter.Listener { args ->
             val reason = args.firstOrNull()?.toString()
             trySend(ConnectionState.Disconnected(reason))
+            Log.e(TAG, reason.toString())
         }
         val onConnectError = Emitter.Listener { args ->
-            val reason = args.firstOrNull()?.toString() ?: "Unknown error"
+            val error = args.firstOrNull()
+            val reason = error?.toString() ?: "Unknown error"
             trySend(ConnectionState.Disconnected(reason))
+            Log.e(TAG, "connect_error: $reason", error as? Throwable)
         }
 
         socket.on(Socket.EVENT_CONNECT, onConnect)

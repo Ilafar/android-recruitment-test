@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface MarketRepository {
     fun observeQuotes(): Flow<List<MarketQuote>>
     fun observeConnectionState(): Flow<ConnectionState>
-    suspend fun connect()
-    suspend fun disconnect()
+    fun connect()
+    fun disconnect()
 }

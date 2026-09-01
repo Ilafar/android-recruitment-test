@@ -14,15 +14,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import az.algoritma.recruitmenttest.domain.model.ConnectionState
 import az.algoritma.recruitmenttest.ui.theme.InverseOnSurface
 import az.algoritma.recruitmenttest.ui.theme.RecruitmentTestTheme
 import az.algoritma.recruitmenttest.ui.theme.Success
 
 @Composable
 fun ConnectionStatusChip(
-    isConnected: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    connectionState: ConnectionState
 ) {
+    val (dotColor, label) = when (connectionState) {
+        is ConnectionState.Connected -> Success to "Connected"
+        is ConnectionState.Connecting -> MaterialTheme.colorScheme.tertiary to "Connecting"
+        is ConnectionState.Disconnected -> MaterialTheme.colorScheme.error to "Disconnected"
+    }
+
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(50),
@@ -36,10 +43,10 @@ fun ConnectionStatusChip(
                 modifier = Modifier
                     .size(8.dp)
                     .clip(CircleShape),
-                color = if (isConnected) Success else MaterialTheme.colorScheme.error
+                color = dotColor
             ) {}
             Text(
-                text = if (isConnected) "Connected" else "Disconnected",
+                text = label,
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(start = 6.dp)
@@ -51,15 +58,17 @@ fun ConnectionStatusChip(
 @Preview(showBackground = true)
 @Composable
 private fun ConnectionStatusChipConnectedPreview() {
-    RecruitmentTestTheme {
-        ConnectionStatusChip(isConnected = true)
-    }
+    RecruitmentTestTheme { ConnectionStatusChip(connectionState = ConnectionState.Connected) }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ConnectionStatusChipConnectingPreview() {
+    RecruitmentTestTheme { ConnectionStatusChip(connectionState = ConnectionState.Connecting) }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun ConnectionStatusChipDisconnectedPreview() {
-    RecruitmentTestTheme {
-        ConnectionStatusChip(isConnected = false)
-    }
+    RecruitmentTestTheme { ConnectionStatusChip(connectionState = ConnectionState.Disconnected("")) }
 }

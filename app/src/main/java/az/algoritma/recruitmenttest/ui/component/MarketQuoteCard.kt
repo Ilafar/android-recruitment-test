@@ -20,17 +20,18 @@ import az.algoritma.recruitmenttest.R
 import az.algoritma.recruitmenttest.ui.theme.RecruitmentTestTheme
 import az.algoritma.recruitmenttest.ui.theme.Success
 
-data class MarketQuote(
+data class UiMarketQuote(
     val symbol: String,
     val price: String,
-    val volume: String,
-    val changePercent: Double,
+    val dayRange: String,
+    val metaText: String,
+    val changeText: String,
     val isPositive: Boolean
 )
 
 @Composable
 fun MarketQuoteCard(
-    quote: MarketQuote,
+    quote: UiMarketQuote,
     modifier: Modifier = Modifier
 ) {
     val accentColor = if (quote.isPositive) Success else MaterialTheme.colorScheme.error
@@ -58,7 +59,12 @@ fun MarketQuoteCard(
             ) {
                 Text(text = quote.symbol, style = MaterialTheme.typography.titleMedium)
                 Text(
-                    text = "Vol: ${quote.volume}",
+                    text = quote.dayRange,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(
+                    text = quote.metaText,
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -67,7 +73,7 @@ fun MarketQuoteCard(
             Column(horizontalAlignment = Alignment.End) {
                 Text(text = quote.price, style = MaterialTheme.typography.titleMedium)
                 Text(
-                    text = "${if (quote.isPositive) "↑" else "↓"}${quote.changePercent}%",
+                    text = quote.changeText,
                     style = MaterialTheme.typography.labelMedium,
                     color = accentColor
                 )
@@ -81,11 +87,12 @@ fun MarketQuoteCard(
 private fun MarketQuoteCardUpPreview() {
     RecruitmentTestTheme {
         MarketQuoteCard(
-            quote = MarketQuote(
+            quote = UiMarketQuote(
                 symbol = "AIG",
-                price = "60.25",
-                volume = "1.2M",
-                changePercent = 1.2,
+                price = "76.10",
+                dayRange = "L 75.94 · H 77.30",
+                metaText = "Spread: 5 pts · Ask 76.15 · 19:24:22",
+                changeText = "↑1.20%",
                 isPositive = true
             )
         )
@@ -97,11 +104,12 @@ private fun MarketQuoteCardUpPreview() {
 private fun MarketQuoteCardDownPreview() {
     RecruitmentTestTheme {
         MarketQuoteCard(
-            quote = MarketQuote(
+            quote = UiMarketQuote(
                 symbol = "ALIBABA",
-                price = "75.50",
-                volume = "3.4M",
-                changePercent = 2.5,
+                price = "112.89",
+                dayRange = "L 112.22 · H 113.83",
+                metaText = "Spread: 5 pts · Ask 112.94 · 19:24:09",
+                changeText = "↓0.83%",
                 isPositive = false
             )
         )

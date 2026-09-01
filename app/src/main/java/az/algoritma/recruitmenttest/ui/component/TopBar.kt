@@ -17,14 +17,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import az.algoritma.recruitmenttest.R
+import az.algoritma.recruitmenttest.domain.model.ConnectionState
 import az.algoritma.recruitmenttest.ui.theme.RecruitmentTestTheme
 import az.algoritma.recruitmenttest.ui.theme.SurfaceVariant
 
 @Composable
 fun TopBar(
+    modifier: Modifier = Modifier,
     innerPadding: PaddingValues,
-    isConnected: Boolean,
-    modifier: Modifier = Modifier
+    connectionState: ConnectionState
 ) {
     val topPadding = innerPadding.calculateTopPadding() + 12.dp
     Row(
@@ -53,7 +54,7 @@ fun TopBar(
                 .padding(start = 8.dp)
                 .weight(1f)
         )
-        ConnectionStatusChip(isConnected = isConnected)
+        ConnectionStatusChip(connectionState = connectionState)
     }
 }
 
@@ -62,8 +63,8 @@ fun TopBar(
 private fun TopBarPreview() {
     RecruitmentTestTheme {
         TopBar(
-            PaddingValues(4.dp),
-            isConnected = true
+            innerPadding = PaddingValues(4.dp),
+            connectionState = ConnectionState.Connected
         )
     }
 }
